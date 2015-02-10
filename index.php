@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<title>红包</title>
+		<link rel="stylesheet" type="text/css" href="css/init-mobi.css"/>
+		<style type="text/css">
+			body{background-color: #ad120d; background-image: url(img/background.png); background-repeat: no-repeat; background-size: cover; background-position: center;}
+			#info_area.info-area{font-size: 1.2em; width: 86%; margin: 0 auto; margin-top: 28%; height: 2.5em; line-height: 2.5em; padding: 0 0.5em; border-radius: 5px;  background-color: #fffcde; color: #713300; }
+			#bagBox.bagBox, #redBag.redBag{width: 76%;  margin: 10% auto; position: relative;}
+			#bagBox.bagBox img, #redBag.redBag img{width: 100%;}
+			#bagBox.bagBox .bagBox-bg, #redBag.redBag .redBag-bg{width: 100%; -webkit-user-select: none;}
+			#bagBox .info-area{position: absolute; top: 48%; left: 19%; color: #FFFFFF;}
+			#bagBox .formBox{ width: 88%; position: absolute; top: 60%; left: 6%;}
+			#bagBox .formBox input{display: block; width: 100%; font-size: 1.08em; height: 2.8em; line-height: 2.8em; text-align: center; background-color: #fffcde; color: #723300; border: none; border-radius: 5px; }
+			#bagBox .formBox .subBtn{display: block; width: 100%; font-size: 1.5em; height: 2em; line-height: 2em; margin-top: 0.5em; text-align: center; background-color: #ffac18; color: #ad140c; -webkit-text-stroke:2px #ffd54b; border: none; border-radius: 5px; }
+			#bagBox .formBox .subBtn:active{background-color: #ff9c08;}
+			
+			#redBag.redBag .bagSeal{width: 100%; position: absolute; top: 7.5%; left: 0; z-index: 7;}
+			#redBag.redBag .bagSeal.open{animation: openBag 2s forwards;}
+			#redBag.redBag .surface{width: 100%; position: absolute; top: 0; left: 0; z-index: 9;}
+			#redBag.redBag .ticketBox{width: 100%; height: 87.46%; position: absolute; bottom: 4.6%; left: 0; z-index: 1;}
+			#redBag.redBag .ticketBox .ticket{width: 100%; height: 100%;}
+			#redBag.redBag .ticketBox .txtBox{position: absolute; top: 0; left: 0; width: 100%; height: 100%; font-size: 4em;}
+			#redBag.redBag .ticketBox .txtBox p{text-align: center; margin: 40% 0.5em; word-break: break-all; color: #FE008F; text-shadow: 1px 1px 0 #FFF, -1px -1px 0 #FFF;}
+			#redBag.redBag .ticketBox.fly{animation: flyOut 2s forwards; z-index: 8;}
+			#redBag.redBag .hide-area{position: absolute; bottom: 24%; width: 100%; font-size: 1.2em; z-index: 11; display: none;}
+			#redBag.redBag .hide-area p{text-align: center; color: #FFF; }
+			@keyframes openBag{
+				from{
+					transform: rotate(0); transform-origin: top;
+				}
+				to{
+					transform: rotateX(180deg); transform-origin: top;
+				}
+			}
+			@keyframes flyOut{
+				from{bottom: 4.6%;}
+				to{bottom: 50%;}
+			}
+		</style>
+		<script src="js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript">
+			$(function(){
+
+				//绑定提交按钮事件
+				$("#subBtn").bind("click", function(){
+					if(validata($("#phoneNumber").val())){
+//						$.ajax({
+//							type:"post",
+//							url:"",
+//							data:{
+//								tel: $.trim($("#phoneNumber").val())
+//							},
+//							success: function(data){
+//								$("#money").html(data.money);
+//								$("#info").html(data.info);
+//								$("#bagBox").hide();
+//								$("#redBag").show();
+//								showTicket();
+//							},
+//							error: function(data){
+//								
+//							}
+//						});
+						$("#bagBox").hide();
+						$("#redBag").show();
+						showTicket();
+					};
+				}";
+				
+				//打开红包事件
+				function showTicket(){
+					$(".bagSeal").addClass("open");
+					var flyOut = setTimeout(function(){
+						$(".ticketBox").addClass("fly");
+						$("#redBag.redBag .hide-area").fadeIn(2000);
+					},2000);
+				};
+				
+				//手机号验证
+				function validata(value){
+					value = $.trim(value);
+					reg = /^(13[0-9]|15[0|1|2|3|5|6|7|8|9]|18[0|5|6|7|8|9])\d{8}$/;
+					if(!value){
+						alert("您输入的手机号码为空哦");
+						return false;
+					}else if(!reg.test(value)){
+						alert("请输入正确的手机号");
+						return false;
+					}else{
+						return true;
+					}
+				}
+			})
+		</script>
+	</head>
+	<body>
+		<div id="content">
+			<div id="info_area" class="info-area">
+				送您一个红包
+			</div>
+			<div id="bagBox" class="bagBox">
+				<img class="bagBox-bg" src="img/bag-bg.png" />
+				<p class="info-area">输入手机号，红包自动放入账户</p>
+				<div id="formBox" class="formBox">					
+					<input type="tel" name="" id="phoneNumber" placeholder="请输入您的手机号码" value="18888888888" />
+					<a id="subBtn" class="subBtn" href="javascript:void(0)">打开红包</a>	
+				</div>
+			</div>
+			<div id="redBag" class="redBag" style="display: none;">
+				<img class="redBag-bg" src="img/redBag.png"/>
+				<img class="bagSeal" src="img/bagSeal.png"/>
+				<div class="ticketBox">
+					<img class="ticket" src="img/ticket-bg.png"/>
+					<!--ticket-rare-bg.png 为抽到特等奖励的背景图-->
+					<!--<img class="ticket" src="img/ticket-rare-bg.png"/>-->
+					<div class="txtBox">
+						<p id="money">￥8</p>
+					</div>
+				</div>
+				<img class="surface" src="img/redBag-front.png"/>
+				<div class="hide-area">
+					<p id="info" class="hide-txt">恭喜您获得8元红包！</p>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			//通过config接口注入权限验证配置
+			wx.config({
+			    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+			    appId: '', // 必填，公众号的唯一标识
+			    timestamp: '<?php echo time();?>', // 必填，生成签名的时间戳
+			    nonceStr: '<?php echo $nonceStr;?>', // 必填，生成签名的随机串
+			    signature: '<?php echo $signature;?>',// 必填，签名
+			    jsApiList: [] // 必填，需要使用的JS接口列表
+			});
+			//通过ready接口处理成功验证
+			wx.ready(function(){
+				// config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后
+			});
+		</script>
+	</body>
+</html>
