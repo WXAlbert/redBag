@@ -69,7 +69,7 @@
 						$("#redBag").show();
 						showTicket();
 					};
-				}";
+				});
 				
 				//打开红包事件
 				function showTicket(){
